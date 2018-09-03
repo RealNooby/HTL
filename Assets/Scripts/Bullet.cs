@@ -24,7 +24,12 @@ public class Bullet : MonoBehaviour
 
         if (collision.gameObject.tag == "Wall")
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
+        }
+
+        if (collision.gameObject.tag == "EnemyRemover")
+        {
+            Destroy(this.gameObject);
         }
     }
     public virtual void HitEnemy(Enemy _enemy, Vector2 collPoint)

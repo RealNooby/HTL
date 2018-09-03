@@ -54,14 +54,16 @@ public class Enemy : MonoBehaviour
         {
             //DIE
             state = EnemyState.DEAD;
-            rgbd2D.AddForce(direction * knockback * 0.2f, ForceMode2D.Impulse);
+            rgbd2D.AddForce(direction * knockback * 0.3f, ForceMode2D.Impulse);
+            //rgbd2D.AddForce(Vector2.right * knockback * 0.2f, ForceMode2D.Impulse);
             health = 0;
             //transform.position += Vector3.right * knockback * knockbackMod;
         }
         else
         {
             state = EnemyState.STUNNED;
-            rgbd2D.AddForce(direction * knockback, ForceMode2D.Impulse);
+            //rgbd2D.AddForce(direction * knockback, ForceMode2D.Impulse);
+            rgbd2D.AddForce(Vector2.right * knockback, ForceMode2D.Impulse);
             //transform.position += Vector3.right * knockback * knockbackMod;
             stunTimer = stunLength;
         }
@@ -94,4 +96,11 @@ public class Enemy : MonoBehaviour
                 break;
         }
 	}
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "EnemyRemover")
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

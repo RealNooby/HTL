@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     public Bullet bulletPrefab;
     public Transform muzzleTransform;
+    public float fireRate;
+    private float Timer;
 	// Use this for initialization
 	void Start ()
     {
@@ -29,11 +31,16 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        Timer += Time.deltaTime;
         RotationLoop();
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButton(0))
         {
             //Shoot
-            SpawnBullets();
+            if(Timer >= fireRate)
+            {
+                SpawnBullets();
+                Timer = 0;
+            }
         }
 	}
 }
