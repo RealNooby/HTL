@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
         {
             //DIE
             state = EnemyState.DEAD;
-            rgbd2D.AddForce(direction * knockback * 0.3f, ForceMode2D.Impulse);
+            rgbd2D.AddForce(Vector2.right * knockback * 0.3f, ForceMode2D.Impulse);
             //rgbd2D.AddForce(Vector2.right * knockback * 0.2f, ForceMode2D.Impulse);
             health = 0;
             //transform.position += Vector3.right * knockback * knockbackMod;

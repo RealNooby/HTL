@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bomb : Bullet
+public class Bomb : MonoBehaviour
 {
     public float bombRadius;
-	public override void HitEnemy(Enemy _enemy,Vector2 collPoint)
+	public float bombTimer;
+	private void Update()
+	{
+		bombTimer += Time.deltaTime;
+		if(bombTimer > 1)
+		{
+			Explode();
+		}
+	}
+	public void Explode()
     {
         Collider2D[] colls = Physics2D.OverlapCircleAll(transform.position, bombRadius);
         for (int i = 0; i < colls.Length; i++)
         {
-            Destroy(_enemy.gameObject);
+            Destroy(colls[i].gameObject);
         }
+		Destroy(gameObject);
     }
 }

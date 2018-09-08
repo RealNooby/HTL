@@ -1,13 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
     public Bullet bulletPrefab;
-    public Transform muzzleTransform;
+    public Bomb bombPrefab;
+	public Transform muzzleTransform;
     public float fireRate;
     private float Timer;
+
+	public GameObject bombIndicator;
+
+	public enum BombState
+	{
+		IDLE,
+		DRAGGING
+	}
+	public BombState bombState;
+	public ButtonX bombButton;
 	// Use this for initialization
 	void Start ()
     {
@@ -33,14 +45,35 @@ public class Player : MonoBehaviour
     {
         Timer += Time.deltaTime;
         RotationLoop();
-        if(Input.GetMouseButton(0))
+		if (EventSystem.current.IsPointerOverGameObject(-1))    // is the touch on the GUI
+		{
+			return;
+		}
+		else if (Input.GetMouseButton(0))
         {
-            //Shoot
-            if(Timer >= fireRate)
-            {
-                SpawnBullets();
-                Timer = 0;
-            }
+			if(bombState == BombState.DRAGGING)
+			{
+				bombIndicator.gameObject.SetActive(true);
+				bombIndicator.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward * 10;
+			}
+			else
+			{
+				if (Timer >= fireRate)
+				{
+					SpawnBullets();
+					Timer = 0;
+				}
+			}
         }
+		else if(Input.GetMouseButtonUp(0))
+		{
+			if (bombState == BombState.DRAGGING)
+			{
+				bombIndicator.gameObject.SetActive(false);
+				Instantiate(bombPrefab, bombIndicator.transform.position, Quaternion.identity);
+				bombButton.ResetCooldown();
+				bombState = BombState.IDLE;
+			}
+		}
 	}
 }

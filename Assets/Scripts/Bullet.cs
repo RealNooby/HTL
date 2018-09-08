@@ -18,8 +18,6 @@ public class Bullet : MonoBehaviour
         {
             Enemy _enemy = collision.gameObject.GetComponent<Enemy>();
             HitEnemy(_enemy, collision.GetContact(0).point);
-            
-            
         }
 
         if (collision.gameObject.tag == "Wall")
