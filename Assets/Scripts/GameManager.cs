@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public float spawnIntervals;
     private float spawnTimer;
 	public Player player;
+    public int score;
 
     public static GameManager instance;
 	// Use this for initialization

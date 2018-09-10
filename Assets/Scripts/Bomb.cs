@@ -20,6 +20,7 @@ public class Bomb : MonoBehaviour
         for (int i = 0; i < colls.Length; i++)
         {
             Destroy(colls[i].gameObject);
+            GameManager.instance.score += 3;
         }
 		Destroy(gameObject);
     }
