@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     public float knockbackMod;
     public float stunLength;
     private float stunTimer;
+    private bool onDeath = true;
 
     public Color idleColor, hurtColor, deadColor;
 
@@ -57,7 +58,11 @@ public class Enemy : MonoBehaviour
             rgbd2D.AddForce(Vector2.right * knockback * 0.3f, ForceMode2D.Impulse);
             //rgbd2D.AddForce(Vector2.right * knockback * 0.2f, ForceMode2D.Impulse);
             health = 0;
-            GameManager.instance.score += 10;
+            if(onDeath)
+            {
+                onDeath = false;
+                GameManager.instance.score += 10;
+}
             //transform.position += Vector3.right * knockback * knockbackMod;
         }
         else
