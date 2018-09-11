@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour
     private float spawnTimer;
 	public Player player;
     public int score;
+	public Text scoreText;
+
 
     public static GameManager instance;
 	// Use this for initialization
@@ -48,6 +51,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		scoreText.text = "Score: " + score;
         if (spawnTimer < spawnIntervals)
         {
             spawnTimer += Time.deltaTime;
